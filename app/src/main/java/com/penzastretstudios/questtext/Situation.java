@@ -1,9 +1,10 @@
 package com.penzastretstudios.questtext;
 
 public class Situation {
-    Situation[] direction;
-    String subject, text;
-    int deltaRespect;
+    public Situation[] direction;
+    public String subject, text;
+    public int deltaRespect;
+
     public Situation (String subject, String text, int variants, int deltaRespect) {
         this.subject = subject;
         this.text = text;

@@ -1,5 +1,6 @@
 package com.penzastretstudios.questtext;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         makeView();
     }
 
+    @SuppressLint("SetTextI18n")
     public void makeView() {
         TextView textField = (TextView) findViewById(R.id.text);
         textField.setText(story.current_situation.subject + "\n" + story.current_situation.text + "\n" +
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         checkEnd();
     }
 
+    @SuppressLint("SetTextI18n")
     public void checkEnd() {
         if (story.isEnd()) {
             TextView textField = (TextView) findViewById(R.id.text);
