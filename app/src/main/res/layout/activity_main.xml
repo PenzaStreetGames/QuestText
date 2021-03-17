@@ -13,25 +13,40 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/character"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Characteristics" />
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Title"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/story"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:gravity="center"
-            android:text="Hello World!" />
+            android:text="Story"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1)"
-            android:onClick="firstButton"/>
+            android:onClick="firstButton"
+            android:text="Action 1" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2)"
-            android:onClick="secondButton"/>
+            android:onClick="secondButton"
+            android:text="Action 2" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -3,25 +3,40 @@ package com.penzastretstudios.questtext;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Character person = new Character("player");
-    Story story;
+    Character person = Character.getPerson();
+    Story story = Story.getStory();
+    TextView title;
+    TextView storyText;
+    TextView characterText;
+    ArrayList<Button> buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        story = new Story();
+        title = (TextView) findViewById(R.id.textTitle);
+        storyText = (TextView) findViewById(R.id.story);
+        characterText = (TextView) findViewById(R.id.character);
+        buttons.add((Button) findViewById(R.id.button));
+        buttons.add((Button) findViewById(R.id.button2));
         makeView();
     }
 
     public void makeView() {
-        TextView textField = (TextView) findViewById(R.id.text);
+        TextView textField = (TextView) findViewById(R.id.story);
         textField.setText(story.current_situation.subject + "\n" + story.current_situation.text + "\n" +
                 "Уважение:" + story.current_situation.deltaRespect);
+    }
+
+    public void update(int move) {
+        story.go(move);
     }
 
     public void firstButton(View v) {
@@ -40,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkEnd() {
         if (story.isEnd()) {
-            TextView textField = (TextView) findViewById(R.id.text);
+            TextView textField = (TextView) findViewById(R.id.story);
             textField.setText(textField.getText().toString() +
                     "\nКонец истории");
         }

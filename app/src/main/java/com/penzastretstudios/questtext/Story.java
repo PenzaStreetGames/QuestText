@@ -1,9 +1,20 @@
 package com.penzastretstudios.questtext;
 
+import java.util.ArrayList;
+
 public class Story {
 
     private Situation start_story;
     public Situation current_situation;
+    public ArrayList<Situation> situations = new ArrayList<>();
+    public ArrayList<Edge> edges = new ArrayList<>();
+    private static Story story = null;
+
+    public static Story getStory() {
+        if (story == null)
+            story = new Story();
+        return story;
+    }
 
     int[] parents = {
             0, 1, 1, 3, 3, 5, 5, 7, 7
@@ -105,14 +116,33 @@ public class Story {
     }
 
     public void go(int num) {
-        if (num <= current_situation.direction.length)
-            current_situation = current_situation.direction[num - 1];
-        else
-            System.out.println("Вы можете выбирать из "
-                    + current_situation.direction.length + " вариантов");
+        current_situation = current_situation.edges.get(num).sit_into;
+    }
+
+    public void addSituation(int id, String title, String history) {
+        Situation situation = new Situation(id, title, history);
+        situations.add(situation);
+    }
+
+    public void addEdge(int id, int id_from, int id_into, String variant, int deltaRespect) {
+        Situation sit_from = getById(id_from);
+        Situation sit_into = getById(id_into);
+        if (sit_from != null && sit_into != null)
+            System.out.println("Связь не добавлена");
+        Edge edge = new Edge(id=id, variant=variant, deltaRespect=deltaRespect,
+                sit_from=sit_from, sit_into=sit_into);
+        edges.add(edge);
+    }
+
+    public Situation getById(int id) {
+        for (Situation situation : situations) {
+            if (situation.id == id)
+                return situation;
+        }
+        return null;
     }
 
     public boolean isEnd() {
-        return current_situation.direction.length == 0;
+        return current_situation.edges.size() == 0;
     }
 }
