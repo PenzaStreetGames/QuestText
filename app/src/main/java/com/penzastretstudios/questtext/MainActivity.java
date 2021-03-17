@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.penzastretstudios.questtext.abstarcts.AbstractSituation;
 
 import java.util.ArrayList;
 
@@ -16,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     TextView title;
     TextView storyText;
     TextView characterText;
-    ArrayList<Button> buttons;
+    ArrayList<Button> buttons = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,40 +30,45 @@ public class MainActivity extends AppCompatActivity {
         characterText = (TextView) findViewById(R.id.character);
         buttons.add((Button) findViewById(R.id.button));
         buttons.add((Button) findViewById(R.id.button2));
+        buttons.add((Button) findViewById(R.id.button3));
+        for (int i = 0; i < buttons.size(); i++) {
+            int finalI = i;
+            buttons.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    update(finalI);
+                }
+            });
+        }
+        DataFiller.createStory(story);
         makeView();
     }
 
     @SuppressLint("SetTextI18n")
     public void makeView() {
-        TextView textField = (TextView) findViewById(R.id.story);
-        textField.setText(story.current_situation.subject + "\n" + story.current_situation.text + "\n" +
-                "Уважение:" + story.current_situation.deltaRespect);
+        AbstractSituation situation = Story.getStory().current_situation;
+        title.setText(situation.title);
+        storyText.setText(situation.history);
+        characterText.setText(person.name + "\n" + "Уважение: " + person.respect);
+        for (int i = 0; i < buttons.size(); i++) {
+            Button button = buttons.get(i);
+            if (i < situation.edges.size()) {
+                button.setText(situation.edges.get(i).variant);
+            }
+            button.setVisibility((i < situation.edges.size() ? View.VISIBLE : View.INVISIBLE));
+            button.setClickable(i < situation.edges.size());
+        }
     }
 
     public void update(int move) {
         story.go(move);
-    }
-
-    public void firstButton(View v) {
-        story.go(1);
-        person.respect += story.current_situation.deltaRespect;
         makeView();
-        checkEnd();
-    }
-
-    public void secondButton(View v) {
-        story.go(2);
-        person.respect += story.current_situation.deltaRespect;
-        makeView();
-        checkEnd();
     }
 
     @SuppressLint("SetTextI18n")
     public void checkEnd() {
         if (story.isEnd()) {
-            TextView textField = (TextView) findViewById(R.id.story);
-            textField.setText(textField.getText().toString() +
-                    "\nКонец истории");
+            Toast.makeText(getApplicationContext(), "Конец истории", Toast.LENGTH_SHORT).show();
         }
     }
 }

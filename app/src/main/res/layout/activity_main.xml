@@ -47,6 +47,12 @@
             android:layout_height="wrap_content"
             android:onClick="secondButton"
             android:text="Action 2" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Action 3" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
