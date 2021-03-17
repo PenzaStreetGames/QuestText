@@ -63,11 +63,13 @@ public class MainActivity extends AppCompatActivity {
     public void update(int move) {
         story.go(move);
         makeView();
+        checkEnd();
     }
 
     @SuppressLint("SetTextI18n")
     public void checkEnd() {
-        if (story.isEnd()) {
+        boolean end = story.isEnd();
+        if (end) {
             Toast.makeText(getApplicationContext(), "Конец истории", Toast.LENGTH_SHORT).show();
         }
     }

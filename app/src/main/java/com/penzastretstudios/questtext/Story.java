@@ -42,7 +42,7 @@ public class Story {
     }
 
     public void addEndSituation(String title, String history) {
-        AbstractSituation situation = situationCreator.createSituation(title, history);
+        AbstractSituation situation = endSituationCreator.createSituation(title, history);
         situations.add(situation);
     }
 
