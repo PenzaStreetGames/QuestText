@@ -50,7 +50,7 @@ public class Story {
         AbstractSituation sit_from = getById(id_from);
         AbstractSituation sit_into = getById(id_into);
         if (sit_from == null || sit_into == null) {
-            System.out.println("Связь не добавлена");
+            System.out.println("Связь не добавлена " + id_from + " " + id_into);
             return;
         }
         Edge edge = edgeCreator.createEdge(sit_from, sit_into, variant, deltaRespect);
